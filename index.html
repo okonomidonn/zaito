@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZAITO — 完全在宅バイト求人</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Noto Sans JP', sans-serif; background: #f7f7f5; color: #1a1a1a; min-height: 100vh; }
+
+    /* HEADER */
+    header { background: #fff; border-bottom: 1px solid #e8e8e4; padding: 0 1.5rem; height: 56px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+    .logo { font-size: 20px; font-weight: 500; letter-spacing: -0.5px; color: #1a1a1a; }
+    .logo span { color: #1D9E75; }
+    .header-links { display: flex; gap: 8px; }
+    .header-links a { font-size: 13px; padding: 6px 14px; border-radius: 8px; border: 1px solid #e8e8e4; color: #555; text-decoration: none; }
+    .header-links a:hover { background: #f7f7f5; }
+    .header-links a.primary { background: #1D9E75; color: #fff; border-color: #1D9E75; }
+    .header-links a.primary:hover { background: #0F6E56; }
+
+    /* HERO */
+    .hero { background: #fff; border-bottom: 1px solid #e8e8e4; padding: 3rem 1.5rem 2.5rem; text-align: center; }
+    .hero h1 { font-size: 28px; font-weight: 500; margin-bottom: 0.75rem; letter-spacing: -0.5px; }
+    .hero h1 em { color: #1D9E75; font-style: normal; }
+    .hero p { font-size: 14px; color: #666; line-height: 1.7; margin-bottom: 1.5rem; }
+    .badge-row { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 2rem; }
+    .badge { font-size: 12px; padding: 4px 12px; border-radius: 8px; border: 1px solid #e8e8e4; color: #555; background: #f7f7f5; }
+
+    /* SEARCH */
+    .search-wrap { max-width: 600px; margin: 0 auto; }
+    .search-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .search-row select { flex: 1; min-width: 140px; font-size: 13px; font-family: inherit; padding: 0 12px; height: 40px; border-radius: 8px; border: 1px solid #e8e8e4; background: #fff; color: #1a1a1a; appearance: none; cursor: pointer; }
+    .search-row select:focus { outline: none; border-color: #1D9E75; }
+
+    /* STATS */
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid #e8e8e4; background: #fff; }
+    .stat { padding: 1.25rem 1rem; text-align: center; border-right: 1px solid #e8e8e4; }
+    .stat:last-child { border-right: none; }
+    .stat-val { font-size: 22px; font-weight: 500; color: #1a1a1a; }
+    .stat-val.green { color: #1D9E75; }
+    .stat-label { font-size: 11px; color: #888; margin-top: 2px; }
+
+    /* MAIN */
+    .main { max-width: 760px; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+    .section-label { font-size: 12px; color: #888; font-weight: 500; margin-bottom: 12px; }
+
+    /* JOB CARDS */
+    .job-card { background: #fff; border: 1px solid #e8e8e4; border-radius: 12px; padding: 1.25rem; margin-bottom: 10px; transition: border-color 0.15s, box-shadow 0.15s; }
+    .job-card:hover { border-color: #b0dbc9; box-shadow: 0 2px 8px rgba(29,158,117,0.06); }
+    .job-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; gap: 8px; }
+    .job-title { font-size: 15px; font-weight: 500; color: #1a1a1a; line-height: 1.4; }
+    .job-new { font-size: 11px; padding: 2px 8px; border-radius: 6px; background: #E1F5EE; color: #0F6E56; white-space: nowrap; flex-shrink: 0; }
+    .job-company { font-size: 12px; color: #888; margin-bottom: 10px; }
+    .job-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+    .tag { font-size: 11px; padding: 3px 8px; border-radius: 6px; border: 1px solid #e8e8e4; color: #666; }
+    .tag-green { background: #E1F5EE; border-color: #9FE1CB; color: #0F6E56; }
+    .job-bottom { display: flex; justify-content: space-between; align-items: center; }
+    .job-pay { font-size: 15px; font-weight: 500; color: #1a1a1a; }
+    .apply-btn { font-size: 13px; padding: 7px 18px; border-radius: 8px; border: 1px solid #e8e8e4; background: #fff; color: #1a1a1a; cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.1s; }
+    .apply-btn:hover { background: #f7f7f5; border-color: #ccc; }
+    .apply-btn.filled { background: #1D9E75; color: #fff; border-color: #1D9E75; }
+    .apply-btn.filled:hover { background: #0F6E56; }
+
+    /* EMPTY */
+    .empty { display: none; padding: 3rem; text-align: center; color: #aaa; font-size: 13px; }
+
+    /* CTA BANNER */
+    .cta { background: #fff; border: 1px solid #e8e8e4; border-radius: 12px; padding: 1.25rem; display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 1.5rem; }
+    .cta-text strong { font-size: 14px; font-weight: 500; display: block; margin-bottom: 4px; }
+    .cta-text span { font-size: 12px; color: #888; }
+
+    /* FOOTER */
+    footer { border-top: 1px solid #e8e8e4; background: #fff; padding: 1.5rem; text-align: center; font-size: 12px; color: #aaa; }
+
+    /* APPLY MODAL */
+    .modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 200; align-items: center; justify-content: center; padding: 1rem; }
+    .modal-bg.open { display: flex; }
+    .modal { background: #fff; border-radius: 12px; width: 100%; max-width: 480px; padding: 1.5rem; }
+    .modal h2 { font-size: 16px; font-weight: 500; margin-bottom: 0.5rem; }
+    .modal p { font-size: 13px; color: #666; margin-bottom: 1.25rem; }
+    .modal label { font-size: 13px; color: #555; display: block; margin-bottom: 4px; margin-top: 12px; }
+    .modal input, .modal textarea { width: 100%; font-family: inherit; font-size: 13px; padding: 8px 12px; border: 1px solid #e8e8e4; border-radius: 8px; color: #1a1a1a; background: #fff; }
+    .modal input:focus, .modal textarea:focus { outline: none; border-color: #1D9E75; }
+    .modal textarea { resize: vertical; min-height: 80px; }
+    .modal-actions { display: flex; gap: 8px; margin-top: 1.25rem; justify-content: flex-end; }
+    .modal-actions button { font-size: 13px; font-family: inherit; padding: 8px 18px; border-radius: 8px; border: 1px solid #e8e8e4; background: #fff; cursor: pointer; }
+    .modal-actions button.submit { background: #1D9E75; color: #fff; border-color: #1D9E75; }
+    .modal-actions button.submit:hover { background: #0F6E56; }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 22px; }
+      .stats { grid-template-columns: repeat(3, 1fr); }
+      .stat-val { font-size: 18px; }
+      .cta { flex-direction: column; align-items: flex-start; }
+      .header-links a:not(.primary) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">ZAI<span>TO</span></div>
+  <div class="header-links">
+    <a href="#post">求人掲載</a>
+    <a href="#register" class="primary">無料登録</a>
+  </div>
+</header>
+
+<div class="hero">
+  <h1>完全在宅のバイトだけ、<br><em>ここにある。</em></h1>
+  <p>出社ゼロ・審査済みの求人のみ掲載。<br>育児中・地方在住・スキルなしでも大丈夫。</p>
+  <div class="badge-row">
+    <span class="badge">✓ 掲載前審査あり</span>
+    <span class="badge">✓ 全案件・完全在宅</span>
+    <span class="badge">✓ 登録無料</span>
+    <span class="badge">✓ スキル不要案件多数</span>
+  </div>
+  <div class="search-wrap">
+    <div class="search-row">
+      <select id="cat-filter" onchange="filter()">
+        <option value="">すべての職種</option>
+        <option value="data">データ入力</option>
+        <option value="sns">SNS運用</option>
+        <option value="writing">ライティング</option>
+      </select>
+      <select id="hours-filter" onchange="filter()">
+        <option value="">稼働時間・すべて</option>
+        <option value="5">週5時間以内</option>
+        <option value="10">週10時間以内</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat">
+    <div class="stat-val green" id="job-count">6</div>
+    <div class="stat-label">掲載中の求人</div>
+  </div>
+  <div class="stat">
+    <div class="stat-val">審査済</div>
+    <div class="stat-label">全求人</div>
+  </div>
+  <div class="stat">
+    <div class="stat-val">0円</div>
+    <div class="stat-label">ワーカー登録費</div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="section-label" id="result-label">掲載中の求人</div>
+  <div id="job-list"></div>
+  <div class="empty" id="empty-msg">条件に合う求人が見つかりませんでした</div>
+
+  <div class="cta">
+    <div class="cta-text">
+      <strong>企業・個人事業主の方へ</strong>
+      <span>在宅ワーカーを採用しませんか？まずは無料で掲載できます。</span>
+    </div>
+    <a href="mailto:hello@zaito.jp" class="apply-btn filled">掲載を相談する</a>
+  </div>
+</div>
+
+<footer>
+  © 2025 ZAITO — 完全在宅バイト求人プラットフォーム
+</footer>
+
+<!-- 応募モーダル -->
+<div class="modal-bg" id="modal" onclick="closeModal(event)">
+  <div class="modal">
+    <h2 id="modal-title">応募する</h2>
+    <p id="modal-desc">以下の情報を入力して送信してください。</p>
+    <label>お名前 *</label>
+    <input type="text" id="f-name" placeholder="山田 花子">
+    <label>メールアドレス *</label>
+    <input type="email" id="f-email" placeholder="example@email.com">
+    <label>稼働できる時間帯</label>
+    <input type="text" id="f-time" placeholder="例：平日 10〜15時、週末">
+    <label>簡単な自己紹介（任意）</label>
+    <textarea id="f-intro" placeholder="経験やスキルなど。なければ空欄でOKです。"></textarea>
+    <div class="modal-actions">
+      <button onclick="closeModal()">キャンセル</button>
+      <button class="submit" onclick="submitForm()">応募する</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const jobs = [
+  { id:1, title:"SNS投稿の文章作成補助", company:"株式会社〇〇（スタートアップ）", cat:"sns", hours:5, pay:"時給 1,000円", tags:["SNS運用","週5h以内","スキル不要"], isNew:true },
+  { id:2, title:"Excelへのデータ入力作業", company:"△△事務代行サービス", cat:"data", hours:5, pay:"時給 900円", tags:["データ入力","週5h以内","スキル不要"], isNew:true },
+  { id:3, title:"商品説明文のライティング", company:"□□ECサイト運営", cat:"writing", hours:10, pay:"1件 300円〜", tags:["ライティング","週10h以内"], isNew:false },
+  { id:4, title:"Instagram運用・投稿スケジュール管理", company:"◇◇コスメブランド", cat:"sns", hours:10, pay:"月額 15,000円〜", tags:["SNS運用","週10h以内"], isNew:false },
+  { id:5, title:"アンケートデータの集計・入力", company:"リサーチ会社 ××", cat:"data", hours:5, pay:"時給 850円", tags:["データ入力","週5h以内","スキル不要"], isNew:false },
+  { id:6, title:"ブログ記事の校正・誤字チェック", company:"メディア運営 ▽▽", cat:"writing", hours:10, pay:"1記事 500円〜", tags:["ライティング","週10h以内"], isNew:true },
+];
+
+let currentJob = null;
+
+function render(list) {
+  const el = document.getElementById('job-list');
+  const empty = document.getElementById('empty-msg');
+  const label = document.getElementById('result-label');
+  document.getElementById('job-count').textContent = list.length;
+  label.textContent = list.length + '件の求人';
+  if (!list.length) { el.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  el.innerHTML = list.map(j => `
+    <div class="job-card">
+      <div class="job-top">
+        <div class="job-title">${j.title}</div>
+        ${j.isNew ? '<span class="job-new">NEW</span>' : ''}
+      </div>
+      <div class="job-company">📌 ${j.company}</div>
+      <div class="job-tags">
+        ${j.tags.map(t => t === 'スキル不要'
+          ? `<span class="tag tag-green">✓ ${t}</span>`
+          : `<span class="tag">${t}</span>`).join('')}
+      </div>
+      <div class="job-bottom">
+        <div class="job-pay">${j.pay}</div>
+        <button class="apply-btn filled" onclick="openModal(${j.id})">応募する</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filter() {
+  const cat = document.getElementById('cat-filter').value;
+  const hours = document.getElementById('hours-filter').value;
+  render(jobs.filter(j => {
+    if (cat && j.cat !== cat) return false;
+    if (hours && j.hours > parseInt(hours)) return false;
+    return true;
+  }));
+}
+
+function openModal(id) {
+  currentJob = jobs.find(j => j.id === id);
+  document.getElementById('modal-title').textContent = '応募：' + currentJob.title;
+  document.getElementById('modal-desc').textContent = currentJob.company + ' への応募フォームです。';
+  document.getElementById('modal').classList.add('open');
+}
+
+function closeModal(e) {
+  if (!e || e.target === document.getElementById('modal')) {
+    document.getElementById('modal').classList.remove('open');
+  }
+}
+
+function submitForm() {
+  const name = document.getElementById('f-name').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  if (!name || !email) { alert('お名前とメールアドレスを入力してください。'); return; }
+  alert('応募を受け付けました！\n' + currentJob.title + '\n\n確認メールをお送りします。');
+  document.getElementById('modal').classList.remove('open');
+  document.getElementById('f-name').value = '';
+  document.getElementById('f-email').value = '';
+  document.getElementById('f-time').value = '';
+  document.getElementById('f-intro').value = '';
+}
+
+render(jobs);
+</script>
+</body>
+</html>
