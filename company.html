@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZAITO — 企業向け在宅ワーカー採用</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Noto Sans JP', sans-serif; background: #f7f7f5; color: #1a1a1a; line-height: 1.6; }
+    a { color: #1D9E75; text-decoration: none; }
+
+    /* HEADER */
+    header { background: #fff; border-bottom: 1px solid #e8e8e4; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+    .logo { font-size: 18px; font-weight: 600; letter-spacing: -0.5px; }
+    .logo span { color: #1D9E75; }
+    .nav-links { display: flex; gap: 16px; }
+    .nav-links a { font-size: 13px; color: #555; }
+    .nav-links a:hover { color: #1D9E75; }
+    .nav-links .cta { background: #1D9E75; color: #fff; padding: 8px 16px; border-radius: 8px; }
+    .nav-links .cta:hover { background: #0F6E56; }
+
+    /* HERO */
+    .hero { background: linear-gradient(135deg, #f7f7f5 0%, #fff 100%); padding: 4rem 1.5rem; text-align: center; border-bottom: 1px solid #e8e8e4; }
+    .hero h1 { font-size: 36px; font-weight: 600; margin-bottom: 1rem; line-height: 1.3; letter-spacing: -1px; }
+    .hero h1 em { color: #1D9E75; font-style: normal; }
+    .hero p { font-size: 16px; color: #666; margin-bottom: 1.5rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+    .hero-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn { font-size: 14px; padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; font-weight: 500; transition: all 0.15s; font-family: inherit; }
+    .btn-primary { background: #1D9E75; color: #fff; }
+    .btn-primary:hover { background: #0F6E56; transform: translateY(-1px); }
+    .btn-secondary { background: #fff; border: 1px solid #e8e8e4; color: #1a1a1a; }
+    .btn-secondary:hover { border-color: #1D9E75; background: #f7f7f5; }
+
+    /* STATS */
+    .stats { background: #fff; border-bottom: 1px solid #e8e8e4; }
+    .stats-wrap { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); padding: 2rem 1.5rem; gap: 2rem; text-align: center; }
+    .stat { }
+    .stat-num { font-size: 32px; font-weight: 600; color: #1D9E75; margin-bottom: 0.5rem; }
+    .stat-label { font-size: 13px; color: #888; }
+
+    /* SECTION */
+    section { padding: 3rem 1.5rem; }
+    .section-wrap { max-width: 1000px; margin: 0 auto; }
+    h2 { font-size: 28px; font-weight: 600; margin-bottom: 0.5rem; letter-spacing: -0.5px; }
+    .subtitle { font-size: 14px; color: #888; margin-bottom: 2rem; }
+
+    /* BENEFITS */
+    .benefits { background: #fff; border-bottom: 1px solid #e8e8e4; }
+    .benefit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+    .benefit { background: #f7f7f5; padding: 1.5rem; border-radius: 12px; border: 1px solid #e8e8e4; }
+    .benefit-icon { font-size: 32px; margin-bottom: 0.75rem; }
+    .benefit h3 { font-size: 15px; font-weight: 600; margin-bottom: 0.5rem; }
+    .benefit p { font-size: 13px; color: #666; line-height: 1.6; }
+
+    /* PRICING */
+    .pricing { background: #fff; border-bottom: 1px solid #e8e8e4; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+    .plan { background: #f7f7f5; border: 1px solid #e8e8e4; border-radius: 12px; padding: 1.5rem; transition: all 0.15s; }
+    .plan.popular { border-color: #1D9E75; background: #fff; box-shadow: 0 4px 16px rgba(29,158,117,0.08); }
+    .plan-badge { display: inline-block; font-size: 11px; padding: 4px 8px; border-radius: 6px; background: #E1F5EE; color: #0F6E56; font-weight: 500; margin-bottom: 0.75rem; }
+    .plan-name { font-size: 18px; font-weight: 600; margin-bottom: 0.5rem; }
+    .plan-price { font-size: 28px; font-weight: 600; color: #1D9E75; margin-bottom: 0.25rem; }
+    .plan-period { font-size: 12px; color: #888; margin-bottom: 1rem; }
+    .plan-features { list-style: none; margin: 1rem 0; font-size: 13px; }
+    .plan-features li { padding: 0.5rem 0; border-bottom: 1px solid #e8e8e4; color: #555; }
+    .plan-features li::before { content: "✓ "; color: #1D9E75; font-weight: 600; margin-right: 0.5rem; }
+    .plan-features li:last-child { border-bottom: none; }
+    .plan-button { width: 100%; margin-top: 1rem; }
+
+    /* CTA BLOCK */
+    .cta-block { background: linear-gradient(135deg, #1D9E75 0%, #0F6E56 100%); color: #fff; border-radius: 12px; padding: 2rem 1.5rem; text-align: center; }
+    .cta-block h3 { font-size: 20px; margin-bottom: 0.5rem; }
+    .cta-block p { font-size: 14px; margin-bottom: 1.5rem; opacity: 0.95; }
+    .cta-block .btn { background: #fff; color: #1D9E75; padding: 12px 28px; font-weight: 600; }
+    .cta-block .btn:hover { background: #f0f0f0; }
+
+    /* FAQ */
+    .faq { background: #fff; border-bottom: 1px solid #e8e8e4; }
+    .faq-item { border-bottom: 1px solid #e8e8e4; padding: 1.5rem 0; }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-q { font-size: 14px; font-weight: 600; color: #1a1a1a; margin-bottom: 0.5rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+    .faq-q::after { content: "▼"; font-size: 12px; transition: transform 0.2s; }
+    .faq-q.open::after { transform: rotate(180deg); }
+    .faq-a { font-size: 13px; color: #666; line-height: 1.6; display: none; }
+    .faq-a.open { display: block; }
+
+    /* FOOTER */
+    footer { background: #fff; border-top: 1px solid #e8e8e4; padding: 2rem 1.5rem; text-align: center; font-size: 12px; color: #aaa; }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 28px; }
+      .hero-buttons { flex-direction: column; }
+      .benefit-grid, .pricing-grid { grid-template-columns: 1fr; }
+      .stats-wrap { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">ZAI<span>TO</span></div>
+  <div class="nav-links">
+    <a href="#pricing">料金</a>
+    <a href="#faq">よくある質問</a>
+    <a href="javascript:openContactModal()" class="cta">お問い合わせ</a>
+  </div>
+</header>
+
+<div class="hero">
+  <h1>在宅ワーカー採用、<br><em>かんたん。</em></h1>
+  <p>データ入力・SNS運用・カスタマーサポート…<br>完全在宅のワーカーを集めたプラットフォーム。<br>採用コストを削減しながら、優秀な人材を確保できます。</p>
+  <div class="hero-buttons">
+    <button class="btn btn-primary" onclick="openContactModal()">無料で掲載を始める</button>
+    <button class="btn btn-secondary" onclick="document.getElementById('benefits').scrollIntoView({behavior:'smooth'})">詳しく見る</button>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stats-wrap">
+    <div class="stat">
+      <div class="stat-num">0円</div>
+      <div class="stat-label">初期費用</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">本人確認済み</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">24h</div>
+      <div class="stat-label">最短応募開始</div>
+    </div>
+  </div>
+</div>
+
+<section class="benefits" id="benefits">
+  <div class="section-wrap">
+    <h2>ZAITO を選ぶ理由</h2>
+    <p class="subtitle">在宅ワーカー採用を、シンプルに。</p>
+    <div class="benefit-grid">
+      <div class="benefit">
+        <div class="benefit-icon">🏠</div>
+        <h3>完全在宅のみ</h3>
+        <p>「在宅と言っていて実は出社」というトラブルなし。全求人が完全在宅です。</p>
+      </div>
+      <div class="benefit">
+        <div class="benefit-icon">✓</div>
+        <h3>掲載前審査あり</h3>
+        <p>すべての求人を事前審査。信頼できるワーカーのみが応募します。</p>
+      </div>
+      <div class="benefit">
+        <div class="benefit-icon">⚡</div>
+        <h3>最短24時間で応募</h3>
+        <p>掲載したその日から応募者が集まります。採用活動がスピーディー。</p>
+      </div>
+      <div class="benefit">
+        <div class="benefit-icon">📊</div>
+        <h3>成果報酬で安心</h3>
+        <p>最初は無料掲載。実績が出たら成功報酬。リスクゼロで試せます。</p>
+      </div>
+      <div class="benefit">
+        <div class="benefit-icon">👥</div>
+        <h3>主婦層・学生層が豊富</h3>
+        <p>育児中・地方在住・副業希望者など、継続率の高いワーカーが多数。</p>
+      </div>
+      <div class="benefit">
+        <div class="benefit-icon">💬</div>
+        <h3>24h サポート対応</h3>
+        <p>採用後のトラブルや質問もサポート。安心して進められます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="pricing">
+  <div class="section-wrap">
+    <h2>シンプルな料金プラン</h2>
+    <p class="subtitle">ニーズに合わせて選べます</p>
+    <div class="pricing-grid">
+      <div class="plan">
+        <div class="plan-badge">新規向け</div>
+        <div class="plan-name">スタート</div>
+        <div class="plan-price">3,000円</div>
+        <div class="plan-period">1件掲載（初月無料）</div>
+        <ul class="plan-features">
+          <li>求人掲載 1件（30日間）</li>
+          <li>応募者管理</li>
+          <li>ワーカー評価閲覧</li>
+        </ul>
+        <button class="btn btn-secondary plan-button" onclick="openContactModal()">お問い合わせ</button>
+      </div>
+      <div class="plan popular">
+        <div class="plan-badge">一番人気</div>
+        <div class="plan-name">スタンダード</div>
+        <div class="plan-price">9,800円</div>
+        <div class="plan-period">/月</div>
+        <ul class="plan-features">
+          <li>求人掲載 3件</li>
+          <li>上位表示（1件）</li>
+          <li>応募者管理</li>
+          <li>メール相談（月2回）</li>
+        </ul>
+        <button class="btn btn-primary plan-button" onclick="openContactModal()">今すぐ始める</button>
+      </div>
+      <div class="plan">
+        <div class="plan-badge">エンタープライズ</div>
+        <div class="plan-name">プレミアム</div>
+        <div class="plan-price">29,800円</div>
+        <div class="plan-period">/月</div>
+        <ul class="plan-features">
+          <li>求人掲載 無制限</li>
+          <li>スカウト機能</li>
+          <li>優先サポート</li>
+          <li>分析ダッシュボード</li>
+        </ul>
+        <button class="btn btn-secondary plan-button" onclick="openContactModal()">お問い合わせ</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-wrap">
+    <div class="cta-block">
+      <h3>まずは無料で試してみませんか？</h3>
+      <p>初月は「スタート」プランが無料。完全在宅のワーカーがどれだけ集まるか、試してください。</p>
+      <button class="btn" onclick="openContactModal()">無料掲載を申し込む</button>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="section-wrap">
+    <h2>よくある質問</h2>
+    <p class="subtitle">不安なことはここで解決</p>
+    
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">掲載審査とは何ですか？</div>
+      <div class="faq-a">完全在宅の案件かどうか、求人内容が適切かどうかを確認します。「在宅と言っていて実は出社」というトラブルを防ぐためです。審査は掲載担当者が手動で行い、通常 1 営業日以内に完了します。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">応募者はどの程度集まりますか？</div>
+      <div class="faq-a">職種と時給にもよりますが、スタンダードプラン以上で掲載された案件は、掲載後 24 時間以内に 3 〜 10 件の応募が集まることが多いです。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">採用できなかったら費用はどうなりますか？</div>
+      <div class="faq-a">掲載料は固定です。採用できるかどうかは関係ありません。ただし、成功報酬プラン（報酬の 10-15%）も選べるため、リスクを抑えたい場合はそちらをお勧めします。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">ワーカーのスキル確認はできますか？</div>
+      <div class="faq-a">はい。プロフィール欄に過去の経験やスキルが表示されます。必要に応じてスキル認定テストの結果も確認できます。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">支払い方法は？</div>
+      <div class="faq-a">銀行振込・クレジットカード・請求書払いに対応しています。詳細はお問い合わせください。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">長期契約割引はありますか？</div>
+      <div class="faq-a">はい。3 ヶ月以上の契約で 10% 割引、6 ヶ月以上で 15% 割引です。</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 ZAITO — 完全在宅バイト採用プラットフォーム</p>
+  <p style="margin-top: 0.5rem;">メール：hello@zaito.jp</p>
+</footer>
+
+<!-- CONTACT MODAL -->
+<div id="contactModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.35);z-index:200;align-items:center;justify-content:center;padding:1rem;flex-direction:column">
+  <div style="background:#fff;border-radius:12px;width:100%;max-width:480px;padding:2rem">
+    <h2 style="font-size:18px;font-weight:600;margin-bottom:1rem">お問い合わせ</h2>
+    <p style="font-size:13px;color:#666;margin-bottom:1.5rem">以下の情報を入力してください。24時間以内にご返信します。</p>
+    
+    <label style="font-size:13px;color:#555;display:block;margin-bottom:4px;margin-top:12px;font-weight:500">会社名 *</label>
+    <input type="text" id="company-name" style="width:100%;font-size:13px;padding:10px;border:1px solid #e8e8e4;border-radius:8px;font-family:inherit" placeholder="株式会社〇〇">
+    
+    <label style="font-size:13px;color:#555;display:block;margin-bottom:4px;margin-top:12px;font-weight:500">担当者名 *</label>
+    <input type="text" id="contact-name" style="width:100%;font-size:13px;padding:10px;border:1px solid #e8e8e4;border-radius:8px;font-family:inherit" placeholder="山田太郎">
+    
+    <label style="font-size:13px;color:#555;display:block;margin-bottom:4px;margin-top:12px;font-weight:500">メールアドレス *</label>
+    <input type="email" id="contact-email" style="width:100%;font-size:13px;padding:10px;border:1px solid #e8e8e4;border-radius:8px;font-family:inherit" placeholder="example@company.jp">
+    
+    <label style="font-size:13px;color:#555;display:block;margin-bottom:4px;margin-top:12px;font-weight:500">興味のあるプラン</label>
+    <select id="plan-select" style="width:100%;font-size:13px;padding:10px;border:1px solid #e8e8e4;border-radius:8px;font-family:inherit">
+      <option>スタート（初月無料）</option>
+      <option>スタンダード（9,800円/月）</option>
+      <option>プレミアム（29,800円/月）</option>
+      <option>相談してから決めたい</option>
+    </select>
+
+    <label style="font-size:13px;color:#555;display:block;margin-bottom:4px;margin-top:12px;font-weight:500">ご質問・ご相談（任意）</label>
+    <textarea id="contact-msg" style="width:100%;font-size:13px;padding:10px;border:1px solid #e8e8e4;border-radius:8px;font-family:inherit;resize:vertical;min-height:80px" placeholder="探している職種、求人数など"></textarea>
+
+    <div style="display:flex;gap:8px;margin-top:1.5rem;justify-content:flex-end">
+      <button style="font-size:13px;padding:10px 18px;border-radius:8px;border:1px solid #e8e8e4;background:#fff;color:#1a1a1a;cursor:pointer;font-family:inherit" onclick="closeContactModal()">キャンセル</button>
+      <button style="font-size:13px;padding:10px 18px;border-radius:8px;border:none;background:#1D9E75;color:#fff;cursor:pointer;font-family:inherit;font-weight:500" onclick="submitContact()">送信</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function openContactModal() { document.getElementById('contactModal').style.display = 'flex'; }
+function closeContactModal() { document.getElementById('contactModal').style.display = 'none'; }
+function toggleFaq(el) { el.classList.toggle('open'); el.nextElementSibling.classList.toggle('open'); }
+function submitContact() {
+  const name = document.getElementById('company-name').value.trim();
+  const email = document.getElementById('contact-email').value.trim();
+  if (!name || !email) { alert('会社名とメールアドレスを入力してください。'); return; }
+  alert('お問い合わせありがとうございます。\n\n' + email + ' に確認メールをお送りします。24時間以内にご返信いたします。');
+  document.getElementById('contactModal').style.display = 'none';
+  document.getElementById('company-name').value = '';
+  document.getElementById('contact-name').value = '';
+  document.getElementById('contact-email').value = '';
+  document.getElementById('contact-msg').value = '';
+}
+</script>
+</body>
+</html>
